@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JavaScript Calculator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin: 50px;
+    }
+
+    #calculator-container {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #left-input, #right-input, #operator-select {
+      margin: 10px;
+      padding: 8px;
+      font-size: 16px;
+    }
+
+    #calculate-button {
+      margin-top: 10px;
+      padding: 10px;
+      font-size: 18px;
+    }
+
+    #result {
+      margin-top: 20px;
+      font-size: 24px;
+    }
+  </style>
+</head>
+<body>
+
+<h1>JavaScript Calculator</h1>
+<div id="calculator-container">
+  <input type="number" id="left-input" placeholder="Enter number">
+  <select id="operator-select">
+    <option value="+">+</option>
+    <option value="-">-</option>
+    <option value="*">*</option>
+    <option value="/">/</option>
+  </select>
+  <input type="number" id="right-input" placeholder="Enter number">
+  <br>
+  <button onclick="calculateResult()" id="calculate-button">Calculate</button>
+</div>
+<p id="result"></p>
+
+<script>
+  function calculateResult() {
+    const leftInput = parseFloat(document.getElementById('left-input').value);
+    const rightInput = parseFloat(document.getElementById('right-input').value);
+    const operator = document.getElementById('operator-select').value;
+
+    if (isNaN(leftInput) || isNaN(rightInput)) {
+      alert('Invalid numbers');
+      clearInputs();
+      return;
+    }
+
+    let result;
+    switch (operator) {
+      case '+':
+        result = leftInput + rightInput;
+        break;
+      case '-':
+        result = leftInput - rightInput;
+        break;
+      case '*':
+        result = leftInput * rightInput;
+        break;
+      case '/':
+        if (rightInput === 0) {
+          alert('Cannot divide by zero');
+          clearInputs();
+          return;
+        }
+        result = leftInput / rightInput;
+        break;
+      default:
+        alert('Invalid operation');
+        clearInputs();
+        return;
+    }
+
+    document.getElementById('result').innerText = `Result: ${result}`;
+  }
+
+  function clearInputs() {
+    document.getElementById('left-input').value = '';
+    document.getElementById('right-input').value = '';
+    document.getElementById('operator-select').value = '+';
+    document.getElementById('result').innerText = '';
+  }
+</script>
+
+</body>
+</html>
